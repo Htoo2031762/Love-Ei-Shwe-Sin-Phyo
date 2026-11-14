@@ -1,1 +1,119 @@
 
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Animation & Message</title>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+            font-family: sans-serif;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        .envelope-container {
+            font-size: 80px;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+        .envelope-container:active {
+            transform: scale(1.1);
+        }
+        .hidden {
+            display: none;
+        }
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            animation: pulse 1s infinite;
+            margin-bottom: 20px;
+        }
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 52px;
+            height: 80px;
+            border-radius: 50px 50px 0 0;
+            background: #ff3366;
+        }
+        .heart::before {
+            left: 52px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .text-box {
+            font-size: 20px;
+            margin-top: 15px;
+            min-height: 50px;
+            padding: 0 20px;
+            line-height: 1.6;
+            color: #ff99cc;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- စာအိတ်ပြမည့်အပိုင်း -->
+    <div id="envelope-section" onclick="openEnvelope()">
+        <div class="envelope-container">💌</div>
+        <p style="font-size: 16px; color: #ff99cc;">စာအိတ်ကို နှိပ်၍ ဖွင့်ပါ</p>
+    </div>
+
+    <!-- အသည်းပုံနှင့် စာများအပိုင်း -->
+    <div id="heart-section" class="hidden" onclick="showNextMessage()">
+        <div class="heart"></div>
+        <div class="text-box" id="messageText">အသဲပုံကို ထိပါ 💕</div>
+    </div>
+
+    <script>
+        // ဒီနေရာမှာ ပြချင်တဲ့ စာသားတွေကို လိုသလို ပြင်ရေးနိုင်ပါတယ်
+        const messages = [
+            "❤️ အသဲရေမနက်တွေ့ကျမယ်နော်
+            "✨ ဒီနေ့အတွက် ကိုယ်ရဲ့ ခံစားချက်လေးတွေပေါ့...",
+            "🌹 အမြဲတမ်း ပျော်ရွှင်နေဖို့ ဆုတောင်းပေးပါတယ်...",
+            "💖 ချစ်တယ် အိဖြိုး ရေ Htoo❤️"
+        ];
+        let currentIndex = -1;
+
+        function openEnvelope() {
+            document.getElementById('envelope-section').style.display = 'none';
+            document.getElementById('heart-section').classList.remove('hidden');
+            showNextMessage();
+        }
+
+        function showNextMessage() {
+            currentIndex++;
+            if (currentIndex < messages.length) {
+                document.getElementById('messageText').innerText = messages[currentIndex];
+            } else {
+                currentIndex = 0;
+                document.getElementById('messageText').innerText = messages[currentIndex];
+            }
+        }
+    </script>
+</body>
+</html>
